@@ -1,7 +1,7 @@
 local module = {}
 
 local Modules = {
-	"Console", "Api", "Files", "Settings", "Sound", "Functions", "System"
+	"TestModule"
 }
 
 function module.Start()
