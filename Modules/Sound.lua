@@ -24,12 +24,9 @@ end
 
 function module.Play(Sound)
     if Sounds[Sound] then
-        local Instance = game.Sounds[Sound]
-        if Instance == nil then
-            SetupSounds()
-            Instance = game.Sounds[Sound]
-        end
-        SoundService:PlayLocalSound(Instance)
+        local Folder = game:FindFirstChild("Sounds")
+        if Folder == nil then SetupSounds() end
+        SoundService:PlayLocalSound(game.Sounds[Sound])
     else
         return warn("Sound.Play Error: Unknown Sound: "..tostring(Sound))
     end
