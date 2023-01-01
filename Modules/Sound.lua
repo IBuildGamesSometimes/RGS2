@@ -10,26 +10,14 @@ local Sounds = {
     -- All sounds will be replaced with sounds by @Roblox in the future
 }
 
-local function SetupSounds()
-    local Folder = Instance.new("Folder")
-    Folder.Name = "Sounds"
-    Folder.Parent = game
-    for Sound,Id in pairs(Sounds) do
-        local Sound = Instance.new("Sound")
-        Sound.SoundId = "rbxassetid://"..tostring(Id)
-        Sound.Name = Name
-        Sound.Parent = Folder
-    end
-end
-
 function module.Play(Sound)
     if Sounds[Sound] then
-        local Folder = game:FindFirstChild("Sounds")
-        if Folder == nil then SetupSounds() end
-        SoundService:PlayLocalSound(game.Sounds[Sound])
-    else
-        return warn("Sound.Play Error: Unknown Sound: "..tostring(Sound))
+        Sound = Sounds[Sound]
     end
+    local Instance = Instance.new("Sound")
+    Instance.SoundId = "rbxassetid://"..tostring(Sound)
+    SoundService:PlayLocalSound(Instance)
+    Instance:Destroy()
 end
 
 return module
