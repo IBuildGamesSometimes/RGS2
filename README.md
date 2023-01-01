@@ -7,7 +7,7 @@ This should help coding client-side [Roblox](https://www.roblox.com/) scripts fa
 local Modules = loadstring(game:HttpGet('https://raw.githubusercontent.com/IBuildGamesSometimes/RGS2/main/Main.lua'))()
 Modules.Start({"Sound"}) -- A table of the Modules you are going to use.
 
-Modules.Sound.Play("Start") -- An eample of the "Sound" module, this will play the "Start" sound.
+Modules.Sound.Play("Start") -- An example of the "Sound" module, this will play the "Start" sound.
 ```
 Full list of modules can viewed [here](https://github.com/IBuildGamesSometimes/RGS2/tree/main/Modules).
 
