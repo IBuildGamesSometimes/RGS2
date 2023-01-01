@@ -11,10 +11,13 @@ local Sounds = {
 }
 
 function module.Play(Sound)
-    if Sounds[Sound] == nil or Sounds[Sound].Instance == nil then
+    if Sounds[Sound] == nil or Sounds[Sound].Id == nil then
+        Sounds[Sound] = {Id = Sound}
+    end
+    if Sounds[Sound].Instance == nil then
         local Instance = Instance.new("Sound")
-        Instance.SoundId = "rbxassetid://"..tostring(Sound)
-        Sounds[Sound] = {Id = Sound, Instance = Instance}
+        Instance.SoundId = "rbxassetid://"..tostring(Sounds[Sound].Id)
+        Sounds[Sound] = {Instance = Instance}
     end
     SoundService:PlayLocalSound(Sounds[Sound].Instance)
 end
