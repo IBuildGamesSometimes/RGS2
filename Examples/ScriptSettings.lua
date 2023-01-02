@@ -19,6 +19,6 @@ else
         ...
     }
 
-    Module.File.Write("Settings",DefaultSettings) -- Save the Settings
+    Modules.File.Write("Settings",DefaultSettings) -- Save the Settings
     ApplySettings(DefaultSettings)
 end
