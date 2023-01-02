@@ -4,7 +4,7 @@ function module.Connect(Url,Function)
     local Connection
     local Success,Response = pcall(function()
         Connection = syn.websocket.connect(Url)
-    end
+    end)
     if Success then
         getgenv().WebUrl = Connection
         Connection.OnMessage:Connect(Function)
