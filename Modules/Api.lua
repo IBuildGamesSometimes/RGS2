@@ -2,6 +2,15 @@ local HttpService = game:GetService("HttpService")
 
 local module = {}
 
+local function Request(HttpRequest)
+    local Executor = string.split(identifyexecutor()," ")[1]
+    if Executor == "Synapse" then
+        return syn.request(HttpRequest)
+    elseif Executor == "Krnl" then
+        return request(HttpRequest)
+    end
+end
+
 function module.SetUrl(Url)
     getgenv().PostUrl = Url
 end
@@ -22,7 +31,8 @@ function module.Post(Content,Url)
         },
         Body = HttpService:JSONEncode(Content)
     }
-    local Response = syn.request(HttpRequest)
+
+    local Response = Request(HttpRequest)
     if Response.Success == false then
         warn("Api.Post Error: \n - "..tostring(Response.Success).."\n - "..tostring(Response.StatusCode).."\n - "..tostring(Response.StatusMessage))
     end
@@ -39,7 +49,7 @@ function module.Get(Url)
             ["Content-Type"] = "application/json"
         }
     }
-    local Response = syn.request(HttpRequest)
+    local Response = Request(HttpRequest)
     if Response.Success == false then
         return("Api.Get Error: \n - "..tostring(Response.Success).."\n - "..tostring(Response.StatusCode).."\n - "..tostring(Response.StatusMessage))
     else
