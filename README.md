@@ -12,6 +12,6 @@ Modules.Sound.Play("Start") -- An example of the "Sound" module, this will play 
 Full list of modules can viewed [here](https://github.com/IBuildGamesSometimes/RGS2/tree/main/Modules).
 
 ## Supporting
-``Synapse X``
+``Synapse X`` ``Krnl``
 
 ###### WIP - I started working on this at 1/1/2023, I'll probably give up after a day. maybe two.
