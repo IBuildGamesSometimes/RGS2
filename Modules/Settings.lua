@@ -1,6 +1,6 @@
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local Players = game:GetService("Players")
+local UserInputService = game:GetService('UserInputService')
+local TweenService = game:GetService('TweenService')
+local CoreGui = game:GetService('CoreGui')
 
 local module = {}
 
@@ -50,11 +50,13 @@ function module.New(Settings,AllowFrameDrag)
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.IgnoreGuiInset = true
     ScreenGui.ResetOnSpawn = false
-    ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenGui.Parent = CoreGui
+
     local Frame = Instance.new("Frame")
     Frame.BackgroundColor3 = Color3.fromRGB(89,89,89)
     Frame.Size = UDim2.new(0.2,0,0.3,0)
     Frame.Parent = ScreenGui
+
     local TextLabel = Instance.new("TextLabel")
     TextLabel.Size = UDim2.new(1,0,0.1,0)
     TextLabel.Position = UDim2.new(0,0,0,0)
@@ -64,14 +66,17 @@ function module.New(Settings,AllowFrameDrag)
     TextLabel.Text = "Settings"
     TextLabel.Font = Enum.Font.FredokaOne
     TextLabel.Parent = Frame
+
     local ScrollingFrame = Instance.new("ScrollingFrame")
     ScrollingFrame.Size = UDim2.new(1,0,0.8,0)
     ScrollingFrame.Position = UDim2.new(0,0,0.1,0)
     ScrollingFrame.BackgroundTransparency = 1
     ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
     ScrollingFrame.Parent = Frame
+
     local UIListLayout = Instance.new("UIListLayout")
     UIListLayout.Parent = ScrollingFrame
+
     for Setting,Function in pairs(Settings) do
         local TextButton = Instance.new("TextButton")
         TextButton.Size = UDim2.new(1,0,0.2,0)
@@ -83,6 +88,7 @@ function module.New(Settings,AllowFrameDrag)
         TextButton.Font = Enum.Font.FredokaOne
         TextButton.Parent = ScrollingFrame
         getgenv()[Setting] = false
+
         TextButton.Activated:Connect(function()
             if getgenv()[Setting] == false then
                 getgenv()[Setting] = true
@@ -91,6 +97,7 @@ function module.New(Settings,AllowFrameDrag)
                 getgenv()[Setting] = false
                 TextButton.BackgroundColor3 = Color3.fromRGB(255,0,0)
             end
+
             if Function then
                 Function(getgenv()[Setting])
             end
