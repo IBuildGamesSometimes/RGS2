@@ -80,7 +80,7 @@ function module.Delete(file:string)
     if isfile(game.PlaceId..'/'..file..'.json') then
         delfile(game.PlaceId..'/'..file..'.json')
     else
-        warn('[File.Delete] Unknown File '..file)
+        warn('[File.Delete] Unknown File: '..file)
     end
 end
 
