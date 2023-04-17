@@ -5,7 +5,7 @@ local module = {}
 Connect: connects to a WebSocket server and sets up a listener for incoming messages
 
 @param url: (string) the URL of the WebSocket server
-@param callback: (function) the function to be called when a message is received
+@param callback: (Any) the function to be called when a message is received
 @return: nil
 
 Example:
@@ -14,7 +14,7 @@ function onMessage(message)
 end
 Modules.Web.Connect('ws://localhost:0000',onMessage)
 ]]
-function module.Connect(url:string,callback:function)
+function module.Connect(url:string,callback:Any)
     local connection
     local success, response = pcall(function()
         connection = syn.websocket.connect(url)
