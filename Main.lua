@@ -1,5 +1,6 @@
 local HttpService = game:GetService('HttpService')
 local module = {}
+getgenv().Branch = 'main'
 
 --[[
 Request: sends an HTTP GET request to the specified URL and returns the response
@@ -40,11 +41,11 @@ Modules.Start({'Sound','Api','File'})
 function module.Start(modules:table)
     if modules then
         for _,file in pairs(modules) do
-            local script = Request('https://raw.githubusercontent.com/IBuildGamesSometimes/RGS2/main/Modules/'..file..'.lua')
+            local script = Request('https://raw.githubusercontent.com/IBuildGamesSometimes/RGS2/'..getgenv().Branch..'/Modules/'..file..'.lua')
             module[string.split(file,'.lua')[1]] = loadstring(script,file)()
         end
     else
-        local fileListJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules')
+        local fileListJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules?ref='..getgenv().Branch)
         local fileList = HttpService:JSONDecode(fileListJson)
         for _,file in pairs(fileList) do
             local script = Request(file.download_url)
@@ -52,6 +53,28 @@ function module.Start(modules:table)
             module[fileName] = loadstring(script,fileName)()
         end
     end
+end
+
+--[[
+SetBranch: sets the active branch to the specified branch
+
+@param branch: (string) the name of the branch to set as the active branch
+@return: nil
+
+Example:
+Modules.SetBranch('main')
+
+#Changing from the main branch can be risky and may cause errors, proceed with caution
+]]
+function module.SetBranch(branch:string)
+    local branches = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
+    for _,branchObj in pairs(branches) do
+        if branchObj.name == branch then
+            getgenv().Branch = branch
+            return
+        end
+    end
+    warn('[Main.SetBranch] The branch '..branch..' does not exist in the repository')
 end
 
 return module
