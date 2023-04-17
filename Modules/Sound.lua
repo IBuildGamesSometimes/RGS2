@@ -1,5 +1,4 @@
-local SoundService = game:GetService("SoundService")
-
+local SoundService = game:GetService('SoundService')
 local module = {}
 
 local Sounds = {
@@ -10,16 +9,26 @@ local Sounds = {
     -- All sounds will be replaced with sounds by @Roblox in the future
 }
 
-function module.Play(Sound)
-    if Sounds[Sound] == nil or Sounds[Sound].Id == nil then
-        Sounds[Sound] = {Id = Sound}
+--[[
+Play: Plays the given sound from the table 'Sounds' locally
+
+@param sound: (string) - The name of the sound to play
+@return: nil
+
+Example:
+Modules.Sound.Play('Start')
+]]
+function module.Play(sound:string)
+    if not Sounds[sound] then
+        warn('[Sound.Play] Invalid sound: '..tostring(sound))
+        return
     end
-    if Sounds[Sound].Instance == nil then
-        local Instance = Instance.new("Sound")
-        Instance.SoundId = "rbxassetid://"..tostring(Sounds[Sound].Id)
-        Sounds[Sound] = {Instance = Instance}
+    if not Sounds[sound].Instance then
+        local instance = Instance.new('Sound')
+        instance.SoundId = 'rbxassetid://'..Sounds[sound].Id
+        Sounds[sound] = {Instance = instance}
     end
-    SoundService:PlayLocalSound(Sounds[Sound].Instance)
+    SoundService:PlayLocalSound(Sounds[sound].Instance)
 end
 
 return module
