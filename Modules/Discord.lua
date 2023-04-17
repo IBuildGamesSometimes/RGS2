@@ -7,7 +7,7 @@ toInteger: converts a Color3 value to an integer
 @return: (number) the integer value of the color
 
 Example:
-local integer = toInteger(Color3.new(255,255,255))
+local integer = toInteger(Color3.fromRGB(255,255,255))
 
 #This function is local and cannot be accessed from outside the module,
 #If you need to use or modify this function, consider modifying the module or copying the relevant code into your own script
