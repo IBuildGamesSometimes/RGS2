@@ -117,6 +117,12 @@ Example:
 Modules.Teleport.TeleportNextServer()
 ]]
 function module.TeleportNextServer()
+    if not isfile(game.PlaceId..'/joinedServers.json') then
+        writefile(game.PlaceId..'/joinedServers.json','')
+    end
+    if not isfile(game.PlaceId..'/cursor.json') then
+        writefile(game.PlaceId..'/cursor.json','')
+    end
     local joinedServers = HttpService:JSONDecode(readfile(game.PlaceId..'/joinedServers.json')) or {}
     table.insert(joinedServers,game.JobId)
     writefile(game.PlaceId..'/joinedServers.json',joinedServers)
