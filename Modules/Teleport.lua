@@ -94,7 +94,7 @@ local serverData = Modules.Teleport.GetNextServer()
 print(serverData.id,serverData.playing,serverData.maxPlayers)
 ]]
 function module.GetNextServer()
-    local cursor = HttpService:JSONDecode(readfile(game.PlaceId..'/cursor.json')) or ''
+    local cursor = readfile(game.PlaceId..'/cursor.json') or ''
     local joinedServers = HttpService:JSONDecode(readfile(game.PlaceId..'/joinedServers.json')) or {}
     while task.wait(1) do
         local serversList = Request('https://games.roblox.com/v1/games/'..game.PlaceId..'/servers/Public?sortOrder=Asc&excludeFullGames=true&limit=100&cursor='..cursor)
@@ -121,7 +121,7 @@ function module.TeleportNextServer()
         makefolder(game.PlaceId)
     end
     if not isfile(game.PlaceId..'/joinedServers.json') then
-        writefile(game.PlaceId..'/joinedServers.json','')
+        writefile(game.PlaceId..'/joinedServers.json','{}')
     end
     if not isfile(game.PlaceId..'/cursor.json') then
         writefile(game.PlaceId..'/cursor.json','')
