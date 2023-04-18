@@ -3,7 +3,7 @@ local TeleportService = game:GetService("TeleportService")
 local module = {}
 
 local sortOrders = {
-    ['Full'] = 'Des'
+    ['Full'] = 'Des',
     ['Empty'] = 'Asc'
 }
 
