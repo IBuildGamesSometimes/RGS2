@@ -1,24 +1,27 @@
 local Modules = loadstring(game:HttpGet('https://raw.githubusercontent.com/IBuildGamesSometimes/RGS2/main/Main.lua'))()
-Modules.Start({"File"})
+Modules.Start({'File'})
 
-local function ApplySettings(Settings)
-    ... -- A function to apply the settings to your script
+local function ApplySettings(settings)
+    -- A function to apply the settings to your script
+    for setting,value in pairs(settings) do
+        ...
+    end
 end
 
-local SavedSettings = Modules.File.Read("Settings") -- Return the data of the file "Settings"
+local savedSettings = Modules.File.Read('settings') -- Return the data of the file 'settings'
 
-if SavedSettings then
+if savedSettings then
     -- Apply the Saved Settings
-    ApplySettings(SavedSettings)
+    ApplySettings(savedSettings)
 else
     -- Apply the Default Settings
-    local DefaultSettings = {
-        ["Setting1"] = true,
-        ["Setting2"] = 100,
-        ["Setting3"] = "Locked",
+    local defaultSettings = {
+        ['Setting1'] = true,
+        ['Setting2'] = 100,
+        ['Setting3'] = 'Locked',
         ...
     }
 
-    Modules.File.Write("Settings",DefaultSettings) -- Save the settings
-    ApplySettings(DefaultSettings)
+    Modules.File.Write('settings',defaultSettings) -- Save the new settings
+    ApplySettings(defaultSettings)
 end
