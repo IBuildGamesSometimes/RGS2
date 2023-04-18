@@ -37,6 +37,8 @@ Example:
 Modules.Start()
 -- Import specific modules
 Modules.Start({'Sound','Api','File'})
+
+#Importing all modules without specifying which ones may result in rate limit issues due to GitHub API. If you plan to inject multiple times in a short period, it is recommended to list specific modules, even if you plan to import all of them
 ]]
 function module.Start(modules:table)
     if modules then
