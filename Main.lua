@@ -6,7 +6,7 @@ getgenv().Branch = 'main'
 Request: sends an HTTP GET request to the specified URL and returns the response
 
 @param url: (string) the URL to send the request to
-@return: (table) the response from the request or nil
+@return: (table) the response from the request
 
 Example:
 local response = Request('https://httpbin.org/get')
@@ -22,9 +22,8 @@ local function Request(url:string)
     local success, response = pcall(game.HttpGet,game,url)
     if not success or not response then
         warn('[Main.Request] Failed to request URL:\nURL: '..tostring(url)..'\nSuccess: '..tostring(success)..'\nReponse: '..tostring(response))
-        return
     end
-    return HttpService:JSONDecode(response)
+    return response
 end
 
 --[[
@@ -46,7 +45,8 @@ function module.Start(modules:table)
             module[string.split(file,'.lua')[1]] = loadstring(script,file)()
         end
     else
-        local fileList = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules?ref='..getgenv().Branch)
+        local fileListJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules?ref='..getgenv().Branch)
+        local fileList = HttpService:JSONDecode(fileListJson)
         for _,file in pairs(fileList) do
             local script = Request(file.download_url)
             local fileName = string.split(file.name,'.lua')[1]
@@ -67,7 +67,8 @@ Modules.SetBranch('main')
 #Changing from the main branch can be risky and may cause errors, proceed with caution
 ]]
 function module.SetBranch(branch:string)
-    local branches = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
+    local branchesJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
+    local branches = HttpService:JSONDecode(branchesJson)
     for _,branchObj in pairs(branches) do
         if branchObj.name == branch then
             getgenv().Branch = branch
