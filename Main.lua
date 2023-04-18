@@ -67,7 +67,8 @@ Modules.SetBranch('main')
 #Changing from the main branch can be risky and may cause errors, proceed with caution
 ]]
 function module.SetBranch(branch:string)
-    local branches = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
+    local branchesJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
+    local branches = HttpService:JSONDecode(branchesJson)
     for _,branchObj in pairs(branches) do
         if branchObj.name == branch then
             getgenv().Branch = branch
