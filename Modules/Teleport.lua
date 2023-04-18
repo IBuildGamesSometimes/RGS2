@@ -128,7 +128,7 @@ function module.TeleportNextServer()
     end
     local joinedServers = HttpService:JSONDecode(readfile(game.PlaceId..'/joinedServers.json')) or {}
     table.insert(joinedServers,game.JobId)
-    writefile(game.PlaceId..'/joinedServers.json',joinedServers)
+    writefile(game.PlaceId..'/joinedServers.json',HttpService:JSONEncode(joinedServers))
     TeleportService.TeleportInitFailed:Connect(function(player,teleportResult,errorMessage,targetPlaceId,teleportOptions)
         warn('[Teleport.TeleportNextServer] Teleport failed, retrying:\nTeleportResult: '..tostring(teleportResult)..'\nErrorMessage: '..tostring(errorMessage))
         Teleport(module.GetNextServer())
