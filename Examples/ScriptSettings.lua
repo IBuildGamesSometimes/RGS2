@@ -21,7 +21,6 @@ else
         ['Setting3'] = 'Locked',
         ...
     }
-
     Modules.File.Write('settings',defaultSettings) -- Save the new settings
     ApplySettings(defaultSettings)
 end

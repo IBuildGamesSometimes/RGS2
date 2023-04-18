@@ -6,7 +6,7 @@ getgenv().Branch = 'main'
 Request: sends an HTTP GET request to the specified URL and returns the response
 
 @param url: (string) the URL to send the request to
-@return: (table) the response from the request
+@return: (table) the response from the request or nil
 
 Example:
 local response = Request('https://httpbin.org/get')
@@ -22,8 +22,9 @@ local function Request(url:string)
     local success, response = pcall(game.HttpGet,game,url)
     if not success or not response then
         warn('[Main.Request] Failed to request URL:\nURL: '..tostring(url)..'\nSuccess: '..tostring(success)..'\nReponse: '..tostring(response))
+        return
     end
-    return response
+    return HttpService:JSONDecode(response)
 end
 
 --[[
@@ -45,8 +46,7 @@ function module.Start(modules:table)
             module[string.split(file,'.lua')[1]] = loadstring(script,file)()
         end
     else
-        local fileListJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules?ref='..getgenv().Branch)
-        local fileList = HttpService:JSONDecode(fileListJson)
+        local fileList = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/contents/Modules?ref='..getgenv().Branch)
         for _,file in pairs(fileList) do
             local script = Request(file.download_url)
             local fileName = string.split(file.name,'.lua')[1]
