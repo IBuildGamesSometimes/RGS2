@@ -117,6 +117,9 @@ Example:
 Modules.Teleport.TeleportNextServer()
 ]]
 function module.TeleportNextServer()
+    if not isfolder(game.PlaceId) then
+        makefolder(game.PlaceId)
+    end
     if not isfile(game.PlaceId..'/joinedServers.json') then
         writefile(game.PlaceId..'/joinedServers.json','')
     end
