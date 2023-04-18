@@ -67,6 +67,12 @@ Modules.SetBranch('main')
 #Changing from the main branch can be risky and may cause errors, proceed with caution
 ]]
 function module.SetBranch(branch:string)
+    local branches = {'main','testing'}
+    if table.find(branches,branch) then
+        getgenv().Branch = branch
+        return
+    end
+    --[[ Disabled due to Github Api rate limit
     local branchesJson = Request('https://api.github.com/repos/IBuildGamesSometimes/RGS2/branches')
     local branches = HttpService:JSONDecode(branchesJson)
     for _,branchObj in pairs(branches) do
@@ -75,6 +81,7 @@ function module.SetBranch(branch:string)
             return
         end
     end
+    ]]
     warn('[Main.SetBranch] The branch '..branch..' does not exist in the repository')
 end
 
