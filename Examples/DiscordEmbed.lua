@@ -10,7 +10,6 @@ local embed = Modules.Discord.Embed(
     {                               -- Fields : Table [Optional]
         {['name'] = 'FieldName1', ['value'] = 'FieldValue1'},
         {['name'] = 'FieldName2', ['value'] = 'FieldValue2'}
-
     }
 )
 
