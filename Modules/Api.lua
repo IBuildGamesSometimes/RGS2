@@ -68,7 +68,7 @@ end
 Get: sends an HTTP GET request to the specified URL and returns the response
 
 @param url: (string) the URL to send the request to
-@return: (table) the response from the request or nil
+@return: (table) the response from the request
 
 Example:
 local response = Modules.Api.Get('https://httpbin.org/get')
@@ -81,9 +81,8 @@ function module.Get(url:string)
     local success, response = pcall(game.HttpGet,game,url)
     if not success or not response then
         warn('[Api.Get] Failed to request URL:\nURL: '..tostring(url)..'\nSuccess: '..tostring(success)..'\nReponse: '..tostring(response))
-        return
     end
-    return HttpService:JSONDecode(response)
+    return response
 end
 
 return module
